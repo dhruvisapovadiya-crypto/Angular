@@ -1,0 +1,170 @@
+
+.card {
+    width: 380px;
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    font-family: 'Alike', serif;
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.deletebtn {
+    background: #1a1c1e;
+    height: 120px; 
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    cursor: pointer;
+    
+}
+
+.delete{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 42px;
+    background-color: rgba(141, 127, 127, 0.5); 
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+}
+
+
+
+
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 6px solid white;
+    margin-top: -50px;
+    margin-left: 30px; 
+    background: #eee;
+    position: relative;
+}
+
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 10px 30px;
+    margin-top: 5px;
+}
+
+.name-text span {
+    color: #000 !important;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.toggle {
+    background-color: #1d9bf0;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(29, 155, 240, 0.3);
+}
+
+
+.role-text, .bio-text {
+    padding: 0 30px;
+    margin: 5px 0;
+}
+
+.role-text span {
+    color: #536471 !important;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.bio-text span {
+    color: #333 !important;
+    font-size: 16px;
+    display: block;
+    margin-top: 10px;
+}
+
+
+.icon-container {
+    display: flex;
+    justify-content: center; 
+    width: 100%;
+    padding: 20px 0;
+    margin-top: 10px;
+}
+
+
+.social-icon {
+    display: flex;
+    gap: 25px; 
+}
+
+.social-icon svg {
+    width: 32px;  
+    height: 32px;
+    color: #1d9bf0; 
+    transition: transform 0.2s;
+}
+
+.social-icon svg:hover {
+    transform: scale(1.2); 
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 6px solid white;
+    margin-top: -50px;
+    margin-left: 30px; 
+    display: block;
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+}
+
+/* .deletebtn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10;
+}
+
+.deletebtn:hover {
+    background-color: #ff4d4d;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
+} */
+
+
