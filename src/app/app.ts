@@ -1,45 +1,81 @@
 import { Component } from '@angular/core';
-import { Profile } from "./profile/profile";
+import { FormsModule } from '@angular/forms';
+
+interface Jira {
+  title: string;
+  description: string;
+  EstimationTime: string;
+  Status: string;
+  date: Date;
+}
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Profile],
+  imports: [FormsModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 
+export class AppComponent {
 
-export class App {
-  users = [
-    {
-      id: 1,
-      name: 'Dhruvi',
-      avatarUrl: "person1.jpg",
-      role: 'Software Engineer',
-      bio: 'Angular developer Who enjoys to develop web App',
-      socialUrl:"https://www.facebook.com/",
-    }
-  ];
 
-  addUser() {
-    const newUser: any = {
-      id: Date.now(),
-      name: "abc",
-      avatarUrl: "https://i.pravatar.cc/300",
-      role: "Software Developer",
-      bio: 'Angular developer Who enjoys to develop web App',
-      socialUrl:"https://www.facebook.com/",
+  taskInput: string = '';
+  showForm: any;
+  formData: Jira = {
+    title: '',
+    description: '',
+    EstimationTime: '',
+    Status: '',
+    date: new Date(),
+  };
+  isEdit!: boolean;
+
+  openAddForm() {
+    this.showForm = true;
+    this.isEdit = false;
+    this.formData = {
+      title: '',
+      description: '',
+      EstimationTime: '',
+      Status: '',
+      date: new Date(),
+
     };
-    this.users.push(newUser);
   }
+  tasks: { text: string; completed: boolean }[] = [];
 
-deleteUser(id: number) {
-  for (let i = 0; i < this.users.length; i++) {
-    if (this.users[i].id === id) {
-      this.users.splice(i, 1);
-      break; 
+  filter: string = 'all';
+  saveData() {
+    if (this.formData.title && this.formData.EstimationTime) {
+
+      this.tasks.push({
+        text: this.formData.title,
+        completed: this.formData.Status === 'Completd'
+      });
+      this.taskInput = '';
+      this.showForm = false;
     }
   }
+
+
+  deleteTask(index: number) {
+    this.tasks.splice(index, 1);
+  }
+
+  getFilteredTasks() {
+    if (this.filter === 'active') {
+      return this.tasks.filter(t => !t.completed);
+    }
+    if (this.filter === 'completed') {
+      return this.tasks.filter(t => t.completed);
+    }
+    return this.tasks;
+  }
+
+
 }
-}
+
+
+
+

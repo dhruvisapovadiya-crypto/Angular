@@ -1,0 +1,50 @@
+.formmain {
+    position: fixed;
+    top: 5;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+}
+
+.top-form {
+    width: 350px;
+    height: 450px;
+    background: white;
+    padding: 20px;
+    border-radius: 20px 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+}
+
+
+.top-form input,textarea {
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+
+}
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.save-btn {
+    background: #087423;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: #f13a3a;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}

@@ -1,0 +1,26 @@
+
+@if(showForm){
+<div class="overly" (click)="showForm=false">
+    <div class="top-form">
+    <input type="text" placeholder="Enter Title of Jira" [(ngModel)]="formData.title">
+    <input type="text" placeholder="Enter Estimate Time" [(ngModel)]="formData.EstimationTime">
+    Choose Status :
+    <select>
+        <option value="In Progress">Progress</option>
+        <option value="Testing">Testing </option>
+        <option value="Pending">Pending</option>
+        <option value="Completd">Completed</option>
+    </select>
+ <textarea placeholder="Enter Description of Jira..." [(ngModel)]="formData.description"></textarea>
+    <input type="date" placeholder="Enter Starting Date">
+
+    <div class="btn-group">
+        <button class="save-btn" >Save</button>
+        <button class="cancel-btn" (click)="showForm=false">Cancel</button>
+    </div>
+
+</div>
+</div>
+
+}
+<app-root></app-root>
