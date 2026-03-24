@@ -26,15 +26,14 @@ h1 {
   border: 2px solid rgb(201, 201, 144);
   background-color: #e9ecef;
   margin-left: 8px;
-
 }
 
 .input-box button {
   flex: 3;
   border: none;
   border-radius: 8px;
-  background: rgb(72, 72, 255);
-  color: white;
+  background: rgb(81, 162, 168);
+  color: rgb(0, 0, 0);
   font-weight: 700;
   transition: 0.3s;
 }
@@ -100,6 +99,12 @@ ul {
   padding: 0;
   margin-top: 20px;
 }
+.dropdown{
+  width: 20px;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 5px;
+}
 
 li {
   margin-left: 5px;
@@ -108,15 +113,16 @@ li {
   align-items: center;
   justify-content: space-between;
   background-color: #f1f3f5;
-  padding: 10px;
+  padding: 5px;
   border-radius: 8px;
   margin-bottom: 10px;
   transition: 0.3s;
 }
 
 .buttons {
+  display: flex;
   align-items: end;
-  gap: 10px;
+  gap: 7px;
 }
 
 
@@ -128,7 +134,7 @@ li {
 
 .delete {
   border-radius: 5px;
-  margin: 8px;
+  margin: 5px;
   height: 35px;
   background: #e63946;
 }
@@ -136,13 +142,13 @@ li {
 .show {
   background:skyblue;
   border-radius: 5px;
-  margin: 8px;
+  margin: 5px;
   height: 35px;
 }
 .edit{
   background: rgb(252, 216, 11);
   border-radius: 5px;
-  margin: 8px;
+  margin: 5px;
   height: 35px;
 }
 
@@ -170,50 +176,7 @@ li {
   color: #adb5bd;
 }
 
-.custom-checkbox input {
-  display: none;
-}
-
-.checkmark {
-  height: 22px;
-  width: 22px;
-  background-color: #3a3a55;
-  border: 2px solid #ffd60a;
-  border-radius: 6px;
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.custom-checkbox input:checked+.checkmark {
-  background-color: #2b9348;
-  border-color: #2b9348;
-}
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-  left: 7px;
-  top: 3px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
-}
-
-.custom-checkbox input:checked+.checkmark:after {
-  display: block;
-}
-
-.checkmark:hover {
-  box-shadow: 0 0 10px rgba(255, 214, 10, 0.6);
-}
-
-
-.overly {
+.showform {
   position: fixed;
   top: 0;
   left: 0;
@@ -225,8 +188,6 @@ li {
   align-items: center;
   z-index: 9999;
 }
-
-
 .top-form {
   background: white;
   padding: 30px;
@@ -238,33 +199,12 @@ li {
   gap: 15px;
 }
 
-
-
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-  }
-
-  to {
-    transform: translateX(0);
-  }
-}
-
-
-.side-form input,
-.side-form textarea {
+.top-form input,textarea {
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ccc;
   outline: none;
 }
-
-
-.side-form textarea {
-  height: 70px;
-  resize: none;
-}
-
 
 .btn-group {
   display: flex;
