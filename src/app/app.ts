@@ -105,16 +105,23 @@ export class AppComponent {
     this.showView = false;
   }
 
-changeStatus(task: any, newStatus: string) {
+  changeStatus(task: any, newStatus: string) {
 
-  const oldStatus = task.status;
-  task.status = newStatus;
-
-  this.filter = newStatus;
-  this.showAlert(
-    ` Status changed from ${this.formatStatus(oldStatus)} → ${this.formatStatus(newStatus)}`
-  );
-}
+    // if user selects ALL → only change filter
+    if (newStatus === 'all') {
+      this.filter = 'all';
+      return;
+    }
+  
+    const oldStatus = task.status;
+    task.status = newStatus;
+  
+    this.filter = newStatus;
+  
+    this.showAlert(
+      `Status changed from ${this.formatStatus(oldStatus)} → ${this.formatStatus(newStatus)}`
+    );
+  }
 
 
 getFilteredTasks() {
