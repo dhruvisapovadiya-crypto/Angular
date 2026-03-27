@@ -128,8 +128,10 @@
     @for (task of getFilteredTasks(); track $index) {
     <li>
       <select class="dropdown" [ngModel]="task.status" (ngModelChange)="changeStatus(task, $event)">
-        <option value="all" >All</option>
-        <option value="todo">To Do</option>
+        <option value="all">All</option>
+        <option value="todo" [disabled]="task.status !== 'all' && task.status !== 'todo'">
+          To Do
+        </option>
         <option value="development" [disabled]="task.status !== 'todo' && task.status !== 'development'">Development
         </option>
         <option value="testing" [disabled]="task.status !== 'development' && task.status !== 'testing'">Testing</option>
