@@ -1,0 +1,173 @@
+<div class="container">
+  <h1>📝 Jira Task Board</h1>
+
+  <div class="input-box">
+    <input type="text" placeholder=" Search task..." [(ngModel)]="searchText" class="search-input">
+    <button class="add" (click)="openAddForm()">+ Add New Task</button>
+  </div>
+
+  @if(showForm){
+  <div class="showform" (click)="closeForm()">
+
+    <form class="top-form" (click)="$event.stopPropagation()" #taskForm="ngForm">
+
+      <h2>{{ isEdit ? 'Edit Task' : 'Add Task' }}</h2>
+
+      <input type="text" name="title" placeholder="Title" [(ngModel)]="formData.title" #title="ngModel" required>
+      @if(title.invalid && title.touched) { <span class="error">Title is Required</span> }
+
+      <input type="text" name="assignee" placeholder="Assignee" [(ngModel)]="formData.assignee" #assignee="ngModel"
+        required>
+      @if(assignee.invalid && assignee.touched) { <span class="error">Please enter the name of Assignee special
+        characters are not allowed</span> }
+
+      <input type="text" name="reporter" placeholder="Reporter" [(ngModel)]="formData.reporter" #reporter="ngModel">
+      @if(reporter.invalid && reporter.touched) { <span class="error">Reporter name is Required </span> }
+
+      <input type="date" [(ngModel)]="formData.dueDate" name="dueDate">
+      <input type="text" name="estimationTime" placeholder="Estimated Time" [(ngModel)]="formData.estimationTime">
+
+
+      <div class="priority-wrapper">
+        <select name="priority" [(ngModel)]="formData.priority" #priority="ngModel" required>
+          <option value="">Select Priority</option>
+          <option value="highest">Highest</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+          <option value="lowest">Lowest</option>
+        </select>
+      </div>
+
+      <textarea name="description" placeholder="Description..." [(ngModel)]="formData.description" rows="4"></textarea>
+
+      <div class="btn-group">
+        <button class="save-btn" [disabled]="taskForm.invalid" (click)="saveData()">Save</button>
+        <button class="cancel-btn" type="button" (click)="closeForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+  }
+
+  <div class="filters">
+    <button (click)="filter='all'" [class.active]="filter==='all'">All</button>
+    <button (click)="filter='todo'" [class.active]="filter==='todo'">To Do</button>
+    <button (click)="filter='development'" [class.active]="filter==='development'">Development</button>
+    <button (click)="filter='testing'" [class.active]="filter==='testing'">Testing</button>
+    <button (click)="filter='merging'" [class.active]="filter==='merging'">Merging</button>
+    <button (click)="filter='completed'" [class.active]="filter==='completed'">Completed</button>
+  </div>
+
+  @if (getFilteredTasks().length === 0) {
+  <p class="empty">No tasks in {{ filter }} stage!</p>
+  }
+
+  @if(showAlertBox){
+  <div class="alert-overlay" (click)="showAlertBox=false">
+    <div class="alert-modal" (click)="$event.stopPropagation()">
+      <p>{{ alertMessage }}</p>
+      <button (click)="showAlertBox=false">OK</button>
+    </div>
+  </div>
+  }
+  @if(showView){
+  <div class="overlay" (click)="closeView()">
+    <div class="modal" (click)="$event.stopPropagation()">
+
+      <h2 class="modal-title"> Task Details</h2>
+
+      <div class="task-grid">
+
+        <div class="field">
+          <label>Title</label>
+          <p>{{ selectedTask?.title }}</p>
+        </div>
+
+        <div class="field">
+          <label>Assignee</label>
+          <p>{{ selectedTask?.assignee }}</p>
+        </div>
+
+        <div class="field">
+          <label>Reporter</label>
+          <p> {{ selectedTask?.reporter }}</p>
+        </div>
+
+        <div class="field">
+          <label>Due Date</label>
+          <p> {{ selectedTask?.dueDate }}</p>
+        </div>
+
+        <div class="field">
+          <label>Priority</label>
+          <p class="priority" [ngClass]="selectedTask?.priority">
+            {{ selectedTask?.priority }}
+          </p>
+        </div>
+
+        <div class="field full">
+          <label>Description</label>
+          <p>{{ selectedTask?.description }}</p>
+        </div>
+
+        <div class="field">
+          <label>Estimated Time</label>
+          <p> {{ selectedTask?.estimationTime }}</p>
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <p>{{ selectedTask?.status }}</p>
+        </div>
+      </div>
+      <button class="close-btn" (click)="closeView()">Close</button>
+    </div>
+  </div>
+  }
+
+  <ul>
+    @for (task of getFilteredTasks(); track $index) {
+    <li>
+      <select class="dropdown" [ngModel]="task.status" (ngModelChange)="changeStatus(task, $event)">
+        <option value="all" >All</option>
+        <option value="todo">To Do</option>
+        <option value="development" [disabled]="task.status !== 'todo' && task.status !== 'development'">Development
+        </option>
+        <option value="testing" [disabled]="task.status !== 'development' && task.status !== 'testing'">Testing</option>
+        <option value="merging" [disabled]="task.status !== 'testing' && task.status !== 'merging'">Merging</option>
+        <option value="completed" [disabled]="task.status !== 'merging' && task.status !== 'completed'">Completed
+        </option>
+      </select>
+
+      <div class="task-content">
+        <h2 class="task-title">{{ task.title }}</h2>
+        <p class="task-assignee"> {{ task.assignee }}</p>
+        <p class="task-desc">{{ task.description }}</p>
+        <p class="task-date">{{ task.dueDate }}</p>
+      </div>
+
+      <div class="buttons">
+        <button class="view" (click)="openView(task)"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="25"
+            fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+            <path
+              d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+          </svg>
+        </button>
+        <button class="edit" (click)="openEditForm(task, tasks.indexOf(task))"><svg xmlns="http://www.w3.org/2000/svg"
+            width="25" height="25" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+            <path
+              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+            <path fill-rule="evenodd"
+              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+          </svg></button>
+        <button class="delete" (click)="deleteTask(tasks.indexOf(task))"><svg xmlns="http://www.w3.org/2000/svg"
+            width="20" height="20" fill="#000000" class="bi bi-x-lg" viewBox="0 0 16 16" stroke="black"
+            stroke-width="2">
+            <path
+              d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+          </svg></button>
+      </div>
+    </li>
+    }
+  </ul>
+</div>
