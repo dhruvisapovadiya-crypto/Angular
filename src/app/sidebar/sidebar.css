@@ -1,0 +1,12 @@
+.sidebar{
+    width: 80px;
+    background:  #111827;
+    text-align: center;
+    padding: 20px;
+}
+
+li{
+    list-style: none;
+    margin: 20px 0;
+    cursor: pointer;
+}

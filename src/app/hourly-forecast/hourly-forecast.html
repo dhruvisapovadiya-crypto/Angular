@@ -1,0 +1,10 @@
+
+<div class="hourly">
+    @if(data){
+    @for (h of data.hourly; track $index) {
+    <div>
+        <p>{{h.time}}</p>
+        <p>{{h.temp}}°C</p>
+    </div>
+    }
+}
